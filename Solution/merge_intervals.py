@@ -3,13 +3,14 @@ from typing import List
 class Solution:
     def mergeIntervals(self, intervals: List[List[int]]) -> List[List[int]]:   
         intervals.sort(key=lambda x: x[0])
-        merged = [intervals[0]]
-        for interval in intervals[1:]:
-            if not merged or merged[-1][1] < interval[0]:
-                merged.append(interval)
+        i = 0
+        while i < len(intervals) - 1:
+            if intervals[i][1] >= intervals[i + 1][0]:
+                intervals[i][1] = max(intervals[i][1], intervals[i + 1][1])
+                intervals.pop(i + 1)
             else:
-                merged[-1][1] = max(merged[-1][1], interval[1])
-        return merged
+                i += 1
+        return intervals
     
 def test1():
     solution = Solution()

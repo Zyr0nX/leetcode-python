@@ -29,6 +29,3 @@ def test2():
     nums = [0,1,0]
     
     assert solution.findMaxLength(nums) == 2
-            
-            
-            

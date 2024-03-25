@@ -13,17 +13,24 @@ class ListNode:
 class Solution:
     def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:
         front = ListNode(0, head)
-        map = {0: front}
+        map = {}
         sum = 0
-        prev = front
-        curr = head
-        while curr.next:
+        curr = front
+        while curr:
             sum += curr.val
+            if sum in map:
+                prev = map[sum]
 
-            if map.get(sum):
-                map[sum].next = curr.next
+                curr = prev.next
+                p = sum + curr.val
+                while p != sum:
+                    del map[p]
+                    curr = curr.next
+                    p += curr.val
+                
+                prev.next = curr.next
             else:
-                map[sum] = prev
+                map[sum] = curr
             
             curr = curr.next
         return front.next

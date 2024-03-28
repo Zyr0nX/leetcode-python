@@ -3,17 +3,16 @@ from typing import List
 class Solution:
     def maxFrequencyElements(self, nums: List[int]) -> int:
         map = {}
-        
-        res = 0
         for num in nums:
             if num in map:
                 map[num] += 1
             else:
                 map[num] = 1
-
-            if map[num] > map[res]:
-                res = num
-            
+                
+        res = 0
+        for num in map:
+            if map[num] == max(map.values()):
+                res += map[num]
 
         return res
     

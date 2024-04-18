@@ -6,7 +6,7 @@ class Solution:
         res = 0
         for index, height in enumerate(heights):
             min_index = index
-            while (stack and height <= stack[-1][1]):
+            while stack and height <= stack[-1][1]:
                 i, h = stack.pop()
                 min_index = i
                 res = max(res, h * (index - i))

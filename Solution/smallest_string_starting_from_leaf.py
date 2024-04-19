@@ -1,5 +1,5 @@
 # Definition for a binary tree node.
-from typing import Optional
+from typing import List, Optional
 from string import ascii_lowercase
 
 class TreeNode:
@@ -10,23 +10,21 @@ class TreeNode:
         
 class Solution:
     def smallestFromLeaf(self, root: Optional[TreeNode]) -> str:
-        stack = []
-        ans = ""
-        def dfs(node: Optional[TreeNode], word,):
+        def dfs(node: Optional[TreeNode], word: str) -> str:
             if not node:
-                stack.pop()
-            stack.append(chr(node.val + 97))
-            if not node.left and not node.right:
-                if ans != "":
-                    ans = min(ans, "".join(stack))
-                else:
-                    ans = "".join(stack)
-            dfs(node.left)
-            dfs(node.right)
-                
-        dfs(root)
-
-        return ans
+                return
+            
+            word = chr(node.val + ord("a")) + word
+            if node.left and node.right:
+                return min(dfs(node.left, word), dfs(node.right, word))
+            if node.left:
+                return dfs(node.left, word)
+            if node.right:
+                return dfs(node.right, word)
+            
+            return word
+        
+        return dfs(root, "")
     
 def test1():
     solution = Solution()

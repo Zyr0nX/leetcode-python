@@ -10,7 +10,8 @@ class Solution:
             position, jump, is_forward = queue.popleft()
             if position in visited:
                 continue
-            visited.add(position)
+            if is_forward:
+                visited.add(position)
             if position == x:
                 return jump
             
@@ -20,6 +21,7 @@ class Solution:
                 queue.append((position - b, jump + 1, False))
             
         return -1
+
     
 def test1():
     solution = Solution()
